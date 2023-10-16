@@ -1,12 +1,12 @@
 
 # Create two external IP addresses
 resource "google_compute_address" "runner-ip" {
-  count = var.count
+  count = var.counter
   name  = "runner-ip-${count.index + 1}"
 }
 
 resource "google_compute_instance" "gitlabrunners" {
-  count = var.count
+  count = var.counter
   machine_type = "e2-medium"
   zone         = "us-central1-c"
   name = "gitlab-runner-${count.index + 1}"
@@ -20,7 +20,7 @@ resource "google_compute_instance" "gitlabrunners" {
   network_interface {
     network = "default"
     access_config {
-      nat_ip = google_compute_address.runner-ip-${count.index + 1}.address
+      nat_ip = google_compute_address.runner-ip[count.index].address
     }
   }
 
