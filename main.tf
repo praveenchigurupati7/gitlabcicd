@@ -16,7 +16,7 @@ resource "google_compute_instance" "gitlabrunners" {
     network = "default"
   }
 
-  metadata_startup_script = file("startup_script.sh")
+  # metadata_startup_script = file("startup_script.sh")
 
   tags = ["http-server", "https-server"]
 
